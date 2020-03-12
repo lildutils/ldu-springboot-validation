@@ -9,17 +9,19 @@ import java.util.Spliterator;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Path.Node;
-import javax.validation.Validation;
 import javax.validation.Validator;
-
-import org.springframework.stereotype.Component;
 
 import com.lildutils.springboot.validation.ex.LDuValidationException;
 
-@Component
 public class LDuCustomValidator
 {
-	private static final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
+	private Validator validator;
+
+	public LDuCustomValidator( Validator validator )
+	{
+		super();
+		this.validator = validator;
+	}
 
 	private <T> Map<String, String> doValidation( T dto, Class<?> groups )
 	{

@@ -1,15 +1,19 @@
 package com.lildutils.springboot.validation.config;
 
-import org.springframework.context.annotation.ComponentScan;
+import javax.validation.Validation;
+
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.lildutils.springboot.validation.controller.advice.LDuValidationsControllerAdvice;
 import com.lildutils.springboot.validation.validator.LDuCustomValidator;
 
 @Configuration
-@ComponentScan(basePackageClasses =
-{ LDuValidationsControllerAdvice.class, LDuCustomValidator.class })
 public class LDuValidationConfigurer
 {
+	@Bean("lduCustomValidator")
+	public LDuCustomValidator getLDuCustomValidator()
+	{
+		return new LDuCustomValidator( Validation.buildDefaultValidatorFactory().getValidator() );
+	}
 
 }
